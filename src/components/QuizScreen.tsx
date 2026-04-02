@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import type { Question } from '../data/questions';
-import { categoryLabels } from '../data/questions';
+import { categoryLabels, isMemberGuessQuestion } from '../data/questions';
 import { getRandomImage } from '../utils/images';
 import ProgressBar from './ProgressBar';
 
@@ -17,11 +17,23 @@ export default function QuizScreen({ questions, onFinish }: QuizScreenProps) {
 
   const question = questions[currentIdx];
 
-  const questionImage = useMemo(
+  const isMemberGuess = isMemberGuessQuestion(question);
+
+  const memberImage = useMemo(
     () => getRandomImage(question.member),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentIdx],
   );
+
+  const groupImage = useMemo(
+    () => getRandomImage('BTS'),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [currentIdx],
+  );
+
+  // For "which member" questions, hide the answer by showing a group photo until revealed
+  const questionImage = isMemberGuess && !revealed ? groupImage : memberImage;
+  const questionImageAlt = isMemberGuess && !revealed ? 'BTS' : question.member;
 
   function handleSelect(idx: number) {
     if (revealed) return;
@@ -87,9 +99,9 @@ export default function QuizScreen({ questions, onFinish }: QuizScreenProps) {
               <img
                 key={questionImage}
                 src={questionImage}
-                alt={question.member}
+                alt={questionImageAlt}
                 className="relative w-44 h-44 sm:w-52 sm:h-52 object-cover rounded-2xl
-                           border border-purple-600/30 shadow-2xl"
+                           border border-purple-600/30 shadow-2xl animate-fade-in"
               />
             </div>
           </div>

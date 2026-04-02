@@ -551,6 +551,18 @@ export const questions: Question[] = [
   },
 ];
 
+// Stage names as they appear in answer options
+const MEMBER_STAGE_NAMES = new Set([
+  'rm', 'suga', 'jin', 'j-hope', 'v', 'jimin', 'jungkook', 'jung kook',
+]);
+
+/** Returns true when answer options are BTS member names (would give away the answer via the photo). */
+export function isMemberGuessQuestion(question: Question): boolean {
+  return (
+    question.options.filter((opt) => MEMBER_STAGE_NAMES.has(opt.toLowerCase().trim())).length >= 2
+  );
+}
+
 export const categoryLabels: Record<QuestionCategory, string> = {
   'song-title': '🎵 Song & Music',
   album: '💿 Albums',
