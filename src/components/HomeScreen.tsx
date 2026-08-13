@@ -6,7 +6,7 @@ interface HomeScreenProps {
 const quizOptions = [
   { count: 5,  label: 'Quick Quiz',     desc: '5 questions · ~3 min',  emoji: '⚡' },
   { count: 10, label: 'Standard Quiz',  desc: '10 questions · ~6 min', emoji: '🎵' },
-  { count: 50, label: 'Full ARMY Test', desc: '50 questions · ~30 min', emoji: '💜' },
+  { count: 60, label: 'Full ARMY Test', desc: '60 questions · ~36 min', emoji: '💜' },
 ];
 
 const links = [
@@ -92,7 +92,7 @@ export default function HomeScreen({ onStart, onViewHistory }: HomeScreenProps) 
         </div>
 
         <p className="text-center text-purple-500/60 dark:text-purple-600/60 text-xs font-medium tracking-wide mb-4">
-          Questions randomly selected from a pool of 50
+          Questions randomly selected from a pool of 60
         </p>
 
         <div className="text-center">
